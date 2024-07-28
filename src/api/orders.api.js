@@ -1,20 +1,23 @@
 import orders from '../data/orders.json';
 
 export const fetchOrders = async () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({ data: orders });
-    }, 500);
-  });
+  try {
+    return { data: orders };
+  } catch (error) {
+    throw new Error('Failed to fetch orders');
+  }
 };
 
 export const fetchOrder = async (id) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const order = orders.find((order) => order.id === id);
-      resolve({ data: order });
-    }, 500);
-  });
+  try {
+    const order = orders.find((order) => order.id === id);
+    if (!order) {
+      throw new Error('Order not found');
+    }
+    return { data: order };
+  } catch (error) {
+    throw new Error('Failed to fetch order');
+  }
 };
 
 export const placeOrder = async (order) => {
