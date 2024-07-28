@@ -31,8 +31,8 @@ const OrderDetails = () => {
               description: productData.description,
               category: productData.category,
               quantity: parseInt(item.quantity),
-              ['unit-price']: parseInt(item['unit-price']),
-              total: parseFloat(item.quantity * item['unit-price']).toFixed(2)
+              ['unit-price']: parseFloat(item['unit-price']),
+              total: parseFloat(item.quantity * item['unit-price'])
             };
           })
         );
@@ -51,9 +51,7 @@ const OrderDetails = () => {
   }, [id]);
 
   const calculateTotal = (items) => {
-    return items
-      .reduce((total, item) => total + parseFloat(item.total), 0)
-      .toFixed(2);
+    return items.reduce((total, item) => total + parseFloat(item.total), 0);
   };
 
   const toggleAddProductModal = useCallback(() => {
@@ -72,7 +70,7 @@ const OrderDetails = () => {
         updatedItems[existingProductIndex] = {
           ...item,
           quantity: item.quantity + 1,
-          total: ((item.quantity + 1) * item['unit-price']).toFixed(2)
+          total: (item.quantity + 1) * item['unit-price']
         };
       } else {
         const newProductItem = {
@@ -80,8 +78,8 @@ const OrderDetails = () => {
           description: newProduct.description,
           category: newProduct.category,
           quantity: 1,
-          'unit-price': newProduct.price,
-          total: parseFloat(newProduct.price).toFixed(2)
+          'unit-price': parseFloat(newProduct.price),
+          total: parseFloat(newProduct.price)
         };
         updatedItems.push(newProductItem);
       }
@@ -102,7 +100,7 @@ const OrderDetails = () => {
           return {
             ...item,
             quantity: newQuantity,
-            total: (newQuantity * item['unit-price']).toFixed(2)
+            total: newQuantity * item['unit-price']
           };
         }
         return item;
@@ -167,7 +165,7 @@ const OrderDetails = () => {
         />
       ))}
       <div className='mt-6 text-right text-lg font-bold text-sage'>
-        Total: ${order.total}
+        Total: ${order.total.toFixed(2)}
       </div>
       {order?.items.length > 0 && (
         <div className='flex justify-center w-full my-3'>

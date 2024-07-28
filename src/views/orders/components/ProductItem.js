@@ -31,8 +31,11 @@ const ProductItem = ({ item, onIncrease, onDecrease, onRemove }) => (
             </Button>
           </div>
         </div>
-        <ProductInfo label='Unit Price' value={`$${item['unit-price']}`} />
-        <ProductInfo label='Total' value={`$${item['total']}`} />
+        <ProductInfo
+          label='Unit Price'
+          value={`$${item['unit-price'].toFixed(2)}`}
+        />
+        <ProductInfo label='Total' value={`$${item['total'].toFixed(2)}`} />
       </div>
     </div>
     <div className='flex justify-end'>
